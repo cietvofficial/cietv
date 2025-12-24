@@ -28,7 +28,7 @@ export function MobileNav({ categories }: { categories: any[] }) {
               pathname === "/" ? "font-bold text-red-600" : "font-medium"
             )}
           >
-            Home
+            Beranda
           </Link>
 
           {/* Loop Kategori */}
@@ -54,9 +54,9 @@ export function MobileNav({ categories }: { categories: any[] }) {
           })}
 
           <hr />
-          <Link href="/admin/posts" className="text-red-600 font-medium pt-2">
+          {/* <Link href="/admin/posts" className="text-red-600 font-medium pt-2">
             Login Admin
-          </Link>
+          </Link> */}
         </div>
       )}
     </div>

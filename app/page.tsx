@@ -28,7 +28,12 @@ function formatDate(date: Date | null) {
 // 2. Strip HTML Tags (Penting untuk preview teks agar layout tidak pecah)
 function stripHtml(html: string) {
   if (!html) return "";
-  return html.replace(/<[^>]*>?/gm, "");
+
+  return html
+    .replace(/<[^>]*>?/gm, "") // 1. Hapus semua tag HTML (<...>)
+    .replace(/&nbsp;/g, " ") // 2. Ganti &nbsp; menjadi spasi biasa
+    .replace(/\s+/g, " ") // 3. Gabungkan spasi yang berdempetan menjadi satu spasi
+    .trim(); // 4. Hapus spasi di awal dan akhir kalimat
 }
 
 export const revalidate = 60;
@@ -127,7 +132,7 @@ export default async function HomePage() {
 
                 {/* Menggunakan stripHtml agar tag HTML tidak merusak layout preview */}
                 <p className="text-gray-600 md:text-lg leading-relaxed line-clamp-3">
-                  {stripHtml(heroPost.content).substring(0, 180)}...
+                  {stripHtml(heroPost.content).substring(0, 150)}...
                 </p>
               </div>
             </Link>
@@ -153,7 +158,7 @@ export default async function HomePage() {
               <div className="flex flex-col gap-6">
                 {sidePosts.map((post) => (
                   <Link
-                    href={`/news/${post.slug}`}
+                    href={`/berita/${post.slug}`}
                     key={post.id}
                     className="group flex gap-4 items-start"
                   >
@@ -209,7 +214,7 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
               {gridPosts.map((post) => (
                 <Link
-                  href={`/news/${post.slug}`}
+                  href={`/berita/${post.slug}`}
                   key={post.id}
                   className="group flex flex-col h-full"
                 >

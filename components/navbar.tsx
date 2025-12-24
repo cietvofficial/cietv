@@ -1,19 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "./ui/button";
-import { Search, Bell } from "lucide-react";
+// import { Button } from "./ui/button"; // Tidak dibutuhkan lagi karena tombol login dihapus
+import { Search } from "lucide-react"; // Bell dihapus dari import
 import { db } from "@/db/drizzle";
 import { categories } from "@/db/schema";
 import { MobileNav } from "./mobile-nav";
-import { NavLinks } from "./nav-links"; // <--- Import component baru
+import { NavLinks } from "./nav-links";
+import { SearchInput } from "./search-input";
 
 export async function Navbar() {
+  // Ambil data kategori dari database (Server Side)
   const categoryList = await db.select().from(categories);
 
   return (
     <header className="border-b bg-white sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* LOGO & MOBILE MENU */}
+        {/* --- BAGIAN KIRI: LOGO & MOBILE MENU --- */}
         <div className="flex items-center gap-4">
           <MobileNav categories={categoryList} />
 
@@ -29,26 +31,13 @@ export async function Navbar() {
           </Link>
         </div>
 
-        {/* NAVIGATION (DESKTOP) - PANGGIL DISINI */}
+        {/* --- BAGIAN TENGAH: NAVIGATION (DESKTOP) --- */}
         <NavLinks categories={categoryList} />
 
-        {/* ACTIONS */}
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon">
-            <Search className="h-5 w-5 text-gray-500" />
-          </Button>
-          <Button variant="ghost" size="icon" className="hidden sm:flex">
-            <Bell className="h-5 w-5 text-gray-500" />
-          </Button>
-          <Link href="/admin/posts">
-            <Button
-              variant="default"
-              size="sm"
-              className="rounded-full px-6 bg-red-600 hover:bg-red-700"
-            >
-              Login
-            </Button>
-          </Link>
+        {/* ACTIONS: SEARCH */}
+        <div className="flex items-center">
+          {/* Panggil Component Search Input di sini */}
+          <SearchInput />
         </div>
       </div>
     </header>
