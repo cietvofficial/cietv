@@ -1,5 +1,4 @@
-import { Sidebar } from "@/components/admin/sidebar";
-import { MobileNav } from "@/components/admin/mobile-nav";
+import { AdminSidebar } from "@/components/admin/sidebar";
 
 export default function AdminLayout({
   children,
@@ -7,22 +6,19 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen bg-gray-50 flex-col md:flex-row">
+    <div className="h-full relative">
       
-      {/* 1. Sidebar Desktop (Hanya muncul di layar MD ke atas) */}
-      <div className="hidden md:flex w-64 flex-col fixed inset-y-0 z-50">
-        <Sidebar />
+      {/* SIDEBAR (Desktop) */}
+      <div className="hidden h-full md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 z-[80] bg-white">
+        <AdminSidebar />
       </div>
 
-      {/* 2. Header Mobile (Hanya muncul di layar kecil) */}
-      <div className="md:hidden sticky top-0 z-50">
-        <MobileNav />
-      </div>
-
-      {/* 3. Konten Utama */}
-      {/* md:pl-64 artinya di desktop konten geser ke kanan 64 unit untuk tempat sidebar */}
-      <main className="flex-1 md:pl-64">
-        <div className="p-4 md:p-8">
+      {/* MAIN CONTENT */}
+      <main className="md:pl-64 h-full bg-gray-50">
+        {/* Tips: bg-gray-50 di sini memberikan efek kontras 
+            antara konten utama (abu muda) dengan sidebar (putih) 
+        */}
+        <div className="h-full p-8">
             {children}
         </div>
       </main>

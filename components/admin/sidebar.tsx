@@ -1,67 +1,109 @@
-'use client';
+"use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, List, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
-// Import action yang baru dibuat
-import { logoutAction } from "@/server/auth-actions"; 
+import { 
+  LayoutDashboard, 
+  Newspaper, 
+  List, 
+  Settings, 
+  LogOut, 
+  Globe 
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { logoutAction } from "@/server/auth-actions";
 
-const menuItems = [
+const routes = [
   {
-    title: "Dashboard",
-    href: "/admin",
+    label: "Dashboard",
     icon: LayoutDashboard,
+    href: "/admin",
   },
   {
-    title: "Berita / Posts",
+    label: "Kelola Berita",
+    icon: Newspaper,
     href: "/admin/posts",
-    icon: FileText,
   },
   {
-    title: "Kategori",
-    href: "/admin/categories",
+    label: "Kategori",
     icon: List,
+    href: "/admin/categories",
   },
 ];
 
-export function Sidebar() {
+export function AdminSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-screen w-64 flex-col border-r bg-gray-900 text-white">
-      <div className="flex h-16 items-center justify-center border-b border-gray-800">
-        <h1 className="text-xl font-bold tracking-wider">ADMIN CIETV</h1>
+    <div className="space-y-4 py-4 flex flex-col h-full bg-white border-r border-gray-200 text-gray-900 shadow-sm">
+      
+      {/* HEADER LOGO */}
+      <div className="px-6 py-2">
+        <Link href="/admin" className="flex items-center gap-2">
+          <Image 
+            src="/logo_cietv.png" 
+            alt="Logo" 
+            width={100} 
+            height={40} 
+            className="object-contain" // Pastikan logo tidak gepeng
+          />
+          {/* Badge Admin */}
+          <span className="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded-full border border-gray-200">
+            ADMIN
+          </span>
+        </Link>
       </div>
 
-      <nav className="flex-1 space-y-1 p-4">
-        {menuItems.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors",
-                isActive
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-400 hover:bg-gray-800 hover:text-white"
-              )}
-            >
-              <item.icon className="h-5 w-5" />
-              {item.title}
-            </Link>
-          );
-        })}
-      </nav>
+      {/* NAVIGATION LINKS */}
+      <div className="px-3 py-2 flex-1">
+        <div className="space-y-1">
+          {routes.map((route) => {
+            const isActive = pathname === route.href;
 
-      <div className="border-t border-gray-800 p-4">
-        {/* Panggil action dari file terpisah */}
-        <form action={logoutAction}>
-            <button type="submit" className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-red-400 hover:bg-gray-800 hover:text-red-300 transition-colors">
-                <LogOut className="h-5 w-5" />
+            return (
+              <Link
+                key={route.href}
+                href={route.href}
+                className={cn(
+                  "text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:bg-gray-100 rounded-lg transition",
+                  isActive 
+                    ? "bg-blue-50 text-blue-700 font-semibold" // Style jika Aktif
+                    : "text-gray-600" // Style jika Tidak Aktif
+                )}
+              >
+                <div className="flex items-center flex-1">
+                  <route.icon className={cn("h-5 w-5 mr-3", isActive ? "text-blue-700" : "text-gray-500")} />
+                  {route.label}
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* FOOTER ACTIONS */}
+      <div className="px-3 py-4 border-t border-gray-100 space-y-2">
+        
+        {/* Tombol Liha Website (Preview) */}
+        <Link href="/" target="_blank">
+            <Button variant="outline" className="w-full justify-start text-gray-600 border-gray-200 hover:bg-gray-50">
+                <Globe className="h-4 w-4 mr-2" />
+                Lihat Website
+            </Button>
+        </Link>
+
+        {/* Tombol Logout */}
+        <form action={logoutAction} > 
+            {/* Sesuaikan action form logout kamu */}
+            <Button 
+                variant="ghost" 
+                className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+                <LogOut className="h-4 w-4 mr-2" />
                 Keluar
-            </button>
+            </Button>
         </form>
       </div>
     </div>
