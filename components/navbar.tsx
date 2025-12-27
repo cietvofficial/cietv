@@ -49,7 +49,7 @@ export async function Navbar() {
               href="/"
               className="text-sm font-bold uppercase text-gray-800 hover:text-red-600 whitespace-nowrap"
             >
-              News
+              Beranda
             </Link>
 
             {featuredCategories.map((cat) => (

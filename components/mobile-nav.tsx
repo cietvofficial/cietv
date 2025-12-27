@@ -65,7 +65,7 @@ export function MobileNav({ categories }: { categories: Category[] }) {
               href="/"
               className="block px-2 py-2text-lg font-medium hover:bg-gray-50 hover:text-red-600 rounded-md transition"
             >
-              Home / News
+              Beranda
             </Link>
 
             {categories.map((cat) => (
