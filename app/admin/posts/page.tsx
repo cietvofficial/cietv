@@ -191,7 +191,7 @@ export default async function AdminPostsPage(props: AdminPostsPageProps) {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Link href={`/news/${post.slug}`} target="_blank">
+                        <Link href={`/berita/${post.slug}`} target="_blank">
                           <Button
                             variant="ghost"
                             size="icon"
@@ -262,7 +262,7 @@ export default async function AdminPostsPage(props: AdminPostsPageProps) {
                 <div className="pt-3 border-t flex items-center justify-between">
                   <span className="text-xs text-gray-400">Actions</span>
                   <div className="flex gap-1">
-                    <Link href={`/news/${post.slug}`} target="_blank">
+                    <Link href={`/berita/${post.slug}`} target="_blank">
                       <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                         <Eye className="w-4 h-4 text-gray-500" />
                       </Button>

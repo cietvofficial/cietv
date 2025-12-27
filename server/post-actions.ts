@@ -14,6 +14,8 @@ export async function createPostAction(prevState: any, formData: FormData) {
   const author = formData.get("author") as string;
   const categoryId = formData.get("categoryId");
   const imageFile = formData.get("image") as File;
+  const actionType = formData.get("submitAction") as string;
+  const isPublished = actionType === "publish"; // True jika publish, False jika draft
 
   const slug = title
     .toLowerCase()
@@ -38,7 +40,7 @@ export async function createPostAction(prevState: any, formData: FormData) {
       imageUrl,
       author,
       categoryId: categoryId ? parseInt(categoryId as string) : null,
-      published: true,
+      published: isPublished,
     });
   } catch (error) {
     console.error(error);
@@ -64,6 +66,9 @@ export async function updatePostAction(
   const author = formData.get("author") as string;
   const categoryId = formData.get("categoryId");
   const imageFile = formData.get("image") as File;
+  const actionType = formData.get("submitAction") as string;
+
+  const isPublished = actionType === "publish";
 
   // Buat slug baru jika judul berubah
   const slug = title
@@ -78,6 +83,7 @@ export async function updatePostAction(
       content,
       author,
       categoryId: categoryId ? parseInt(categoryId as string) : null,
+      published: isPublished,
     };
 
     // --- LOGIKA GAMBAR ---
@@ -109,8 +115,6 @@ export async function updatePostAction(
   redirect("/admin/posts?success=updated");
 }
 
-// Delete Post (Masih sama)
-// actions/post-actions.ts
 export async function deletePost(id: number) {
   try {
     await db.delete(posts).where(eq(posts.id, id));

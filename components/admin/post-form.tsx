@@ -14,6 +14,7 @@ import { useActionState, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import RichTextEditor from "../rich-text-editor";
+import { Save, Send } from "lucide-react";
 
 interface PostFormProps {
   actionHandler: (prevState: any, formData: FormData) => Promise<any>;
@@ -76,7 +77,7 @@ export default function PostForm({
               name="categoryId"
               defaultValue={initialData?.categoryId?.toString()}
             >
-              <SelectTrigger>
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Pilih Kategori" />
               </SelectTrigger>
               <SelectContent>
@@ -95,7 +96,7 @@ export default function PostForm({
             <Input
               id="author"
               name="author"
-              defaultValue={initialData?.author || "Admin"}
+              defaultValue={initialData?.author || "CIETV Team"}
               placeholder="Nama penulis..."
             />
           </div>
@@ -161,26 +162,57 @@ export default function PostForm({
         )}
       </div>
 
-      {/* --- BUTTONS ACTION (Sticky Bottom style) --- */}
-      <div className="bg-gray-50 px-6 py-4 flex justify-end gap-3 border-t">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => router.back()}
-          className="min-w-[100px]"
-        >
-          Batal
-        </Button>
-        <Button type="submit" disabled={isPending} className="min-w-[120px]">
-          {isPending ? (
-            <span className="flex items-center gap-2">
-              <span className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full" />
-              Menyimpan...
-            </span>
-          ) : (
-            buttonLabel
-          )}
-        </Button>
+      {/* --- TOMBOL AKSI (FOOTER) --- */}
+      <div className="bg-gray-50 px-6 py-4 flex items-center justify-between border-t">
+        <div className="text-sm text-gray-500">
+          Status saat ini:{" "}
+          <span
+            className={`font-semibold ${
+              initialData?.published ? "text-green-600" : "text-orange-500"
+            }`}
+          >
+            {initialData
+              ? initialData.published
+                ? "Terbit"
+                : "Draft"
+              : "Baru"}
+          </span>
+        </div>
+
+        <div className="flex gap-3">
+          {/* TOMBOL SAVE DRAFT */}
+          <Button
+            type="submit"
+            name="submitAction"
+            value="draft" // Value ini ditangkap server
+            variant="outline"
+            disabled={isPending}
+            className="border-gray-300 text-gray-700 hover:bg-gray-100"
+          >
+            <Save className="w-4 h-4 mr-2" />
+            Simpan Draft
+          </Button>
+
+          {/* TOMBOL PUBLISH */}
+          <Button
+            type="submit"
+            name="submitAction"
+            value="publish" // Value ini ditangkap server
+            disabled={isPending}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            {isPending ? (
+              "Memproses..."
+            ) : (
+              <>
+                <Send className="w-4 h-4 mr-2" />
+                {initialData?.published
+                  ? "Update & Terbit"
+                  : "Publish Sekarang"}
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </form>
   );
