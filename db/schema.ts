@@ -1,7 +1,7 @@
 import { pgTable, serial, text, timestamp, boolean, integer } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
-// 1. Tabel Users (Admin)
+// Tabel Users (Admin)
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   name: text('name'),
@@ -10,16 +10,16 @@ export const users = pgTable('users', {
   createdAt: timestamp('created_at').defaultNow(),
 });
 
-// 2. Tabel Categories (Baru)
+// Tabel Categories 
 export const categories = pgTable('categories', {
   id: serial('id').primaryKey(),
-  name: text('name').notNull(), // Contoh: "Olahraga", "Politik"
-  slug: text('slug').unique().notNull(), // Contoh: "olahraga", "politik"
-  description: text('description'), // Opsional: deskripsi kategori
+  name: text('name').notNull(), 
+  slug: text('slug').unique().notNull(), 
+  description: text('description'), 
   createdAt: timestamp('created_at').defaultNow(),
 });
 
-// 3. Tabel Posts (Diperbaiki)
+// Tabel Posts
 export const posts = pgTable('posts', {
   id: serial('id').primaryKey(),
   title: text('title').notNull(),
@@ -27,20 +27,16 @@ export const posts = pgTable('posts', {
   content: text('content').notNull(),
   imageUrl: text('image_url'),
   
-  // PERBAIKAN: Gunakan integer, bukan serial untuk foreign key
   categoryId: integer('category_id').references(() => categories.id), 
   
   author: text('author'),
   
-  // PERBAIKAN: Read time adalah angka biasa (menit), bukan serial
   readTime: integer('read_time'), 
   
   published: boolean('published').default(false),
   createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow().$onUpdate(() => new Date()), // Auto update
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdate(() => new Date()),
 });
-
-// --- DEFINISI RELASI (Agar mudah di-query dengan with: { ... }) ---
 
 // Relasi: Satu Post punya Satu Category & Satu Author
 export const postsRelations = relations(posts, ({ one }) => ({

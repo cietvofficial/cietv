@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { Badge } from "@/components/ui/badge"; // Pastikan shadcn badge sudah diinstall
+import { Badge } from "@/components/ui/badge"; 
 
 interface PostCardProps {
   post: {

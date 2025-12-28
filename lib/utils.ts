@@ -5,7 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// Tambahkan fungsi ini
 export function formatDate(date: Date | string | null) {
   if (!date) return "";
   return new Date(date).toLocaleDateString("id-ID", {

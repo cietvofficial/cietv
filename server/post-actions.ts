@@ -4,7 +4,7 @@ import { db } from "@/db/drizzle";
 import { posts } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { uploadToCloudinary } from "@/lib/cloudinary"; // Import helper tadi
+import { uploadToCloudinary } from "@/lib/cloudinary";
 import { redirect } from "next/navigation";
 
 // --- CREATE ---
@@ -15,7 +15,7 @@ export async function createPostAction(prevState: any, formData: FormData) {
   const categoryId = formData.get("categoryId");
   const imageFile = formData.get("image") as File;
   const actionType = formData.get("submitAction") as string;
-  const isPublished = actionType === "publish"; // True jika publish, False jika draft
+  const isPublished = actionType === "publish"; 
 
   const slug = title
     .toLowerCase()
@@ -23,16 +23,16 @@ export async function createPostAction(prevState: any, formData: FormData) {
     .replace(/[^\w-]+/g, "");
 
   try {
-    // 1. Upload ke Cloudinary
+    // Upload ke Cloudinary
     let imageUrl = null;
     if (imageFile && imageFile.size > 0) {
       const uploadResult = await uploadToCloudinary(imageFile, "cietv/berita");
       if (uploadResult) {
-        imageUrl = uploadResult.url; // Kita simpan URL dari Cloudinary
+        imageUrl = uploadResult.url; 
       }
     }
 
-    // 2. Simpan ke Database
+    // Simpan ke Database
     await db.insert(posts).values({
       title,
       slug,
@@ -43,7 +43,7 @@ export async function createPostAction(prevState: any, formData: FormData) {
       published: isPublished,
     });
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return { success: false, error: "Gagal membuat berita." };
   }
   revalidatePath("/admin/posts");
@@ -56,7 +56,7 @@ export async function updatePostAction(
   prevState: any,
   formData: FormData
 ) {
-  // 1. Validasi ID
+  // Validasi ID
   if (!id) {
     return { success: false, error: "ID Berita tidak ditemukan." };
   }
@@ -89,26 +89,23 @@ export async function updatePostAction(
     // --- LOGIKA GAMBAR ---
     // Pastikan file benar-benar ada dan memiliki ukuran (bukan file kosong)
     if (imageFile && imageFile.size > 0 && imageFile.name !== "undefined") {
-      console.log("Mulai upload gambar update...", imageFile.name); // Debugging
 
       const uploadResult = await uploadToCloudinary(imageFile, "cietv/berita");
 
       if (uploadResult) {
         updateData.imageUrl = uploadResult.url;
-        console.log("Upload berhasil:", uploadResult.url);
+        // console.log("Upload berhasil:", uploadResult.url);
       } else {
         throw new Error("Gagal upload ke Cloudinary");
       }
     }
 
-    // Update DB
     await db.update(posts).set(updateData).where(eq(posts.id, id));
   } catch (error) {
-    // PENTING: Log error ke terminal VS Code agar kita tahu alasannya
-    console.error("ERROR UPDATE POST:", error);
+    // console.error("ERROR UPDATE POST:", error);
     return {
       success: false,
-      error: "Gagal update berita. Cek terminal server.",
+      error: "Gagal update berita.",
     };
   }
   revalidatePath("/admin/posts");

@@ -7,7 +7,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useActionState } from "react";
 import { useRouter } from "next/navigation";
-import { Post } from "@/app/admin/posts/columns"; // Import tipe data Post jika perlu
 
 export default function EditPostForm({ post }: { post: any }) {
   const router = useRouter();

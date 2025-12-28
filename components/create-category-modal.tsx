@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useActionState } from "react"; // GANTI DI SINI
+import { useState, useEffect, useActionState } from "react"; 
 import { Plus, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,8 +24,6 @@ const initialState = {
 export function CreateCategoryModal() {
   const [open, setOpen] = useState(false);
 
-  // UPDATE DI SINI: Gunakan useActionState
-  // useActionState sekarang return [state, action, isPending]
   const [state, formAction, isPending] = useActionState(
     createCategoryAction,
     initialState
@@ -34,12 +32,12 @@ export function CreateCategoryModal() {
   useEffect(() => {
     if (state?.success) {
       setOpen(false);
-      toast.success("Kategori berhasil dibuat!"); // 2. Munculkan Alert
+      toast.success("Kategori berhasil dibuat!"); 
     }
     if (state?.error) {
-      toast.error(state.error); // 3. Munculkan Error jika ada
+      toast.error(state.error); 
     }
-  }, [state?.success, state?.error]); // 4. Tambahkan dependency
+  }, [state?.success, state?.error]); 
 
   useEffect(() => {
     if (state?.success) {
@@ -76,7 +74,6 @@ export function CreateCategoryModal() {
           </div>
 
           <DialogFooter>
-            {/* Kita bisa pakai isPending langsung dari hook useActionState di atas */}
             <Button
               type="submit"
               disabled={isPending}

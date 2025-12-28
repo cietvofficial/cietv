@@ -19,12 +19,11 @@ export function FlashMessage() {
       if (success === "deleted") toast.success("Berita berhasil dihapus!");
 
       // 2. Bersihkan URL agar toast tidak muncul lagi saat refresh
-      // Kita replace URL saat ini tanpa parameter 'success'
       const params = new URLSearchParams(searchParams.toString());
       params.delete("success");
       router.replace(`${pathname}?${params.toString()}`);
     }
   }, [searchParams, router, pathname]);
 
-  return null; // Component ini tidak merender visual apa-apa
+  return null; 
 }

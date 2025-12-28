@@ -1,23 +1,36 @@
 "use client";
 
 import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input"; // Shadcn Input
+import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-import { cn } from "@/lib/utils"; // Pastikan ada fungsi cn
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface SearchInputProps {
-    className?: string; // Tambahkan ini
+  className?: string;
 }
 
 export function SearchInput({ className }: SearchInputProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [value, setValue] = useState(searchParams.get("q") || "");
+
+  // Mengambil query yang ada di URL (jika user refresh halaman search)
+  const currentQuery = searchParams.get("q");
+
+  const [value, setValue] = useState(currentQuery || "");
+
+  // Update state jika URL berubah (opsional, untuk sinkronisasi)
+  useEffect(() => {
+    setValue(currentQuery || "");
+  }, [currentQuery]);
 
   const onSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic search kamu...
+
+    // Jika input kosong, jangan lakukan apa-apa
+    if (!value.trim()) return;
+
+    router.push(`/search?q=${encodeURIComponent(value)}`);
   };
 
   return (
@@ -27,10 +40,9 @@ export function SearchInput({ className }: SearchInputProps) {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Cari tokoh, topik atau peristiwa..."
-        // Gabungkan className default dengan className dari props
         className={cn(
-            "pl-10 w-full focus-visible:ring-blue-600 focus-visible:ring-offset-0",
-            className 
+          "pl-10 w-full focus-visible:ring-blue-600 focus-visible:ring-offset-0",
+          className
         )}
       />
     </form>

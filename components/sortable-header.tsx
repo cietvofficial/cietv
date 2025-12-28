@@ -2,11 +2,11 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
-import { cn } from "@/lib/utils"; // Pastikan punya utils cn, atau hapus dan pakai string biasa
+import { cn } from "@/lib/utils";
 
 interface SortableHeaderProps {
   label: string;
-  value: string; // Nama kolom untuk URL (misal: "title", "date")
+  value: string; 
   className?: string;
 }
 

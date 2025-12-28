@@ -1,11 +1,10 @@
 import { updatePostAction } from "@/server/post-actions";
-import PostForm from "@/components/admin/post-form"; // Pastikan path benar
+import PostForm from "@/components/admin/post-form"; 
 import { db } from "@/db/drizzle";
 import { posts, categories } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 
-// 1. Update Interface: params harus Promise
 interface EditPostPageProps {
   params: Promise<{
     id: string;
@@ -13,7 +12,6 @@ interface EditPostPageProps {
 }
 
 export default async function EditPostPage({ params }: EditPostPageProps) {
-  // 2. Await params terlebih dahulu!
   const resolvedParams = await params;
   const id = parseInt(resolvedParams.id);
 

@@ -1,10 +1,9 @@
 import { db } from "@/db/drizzle";
 import { categories } from "@/db/schema";
-import { createPostAction } from "@/server/post-actions"; // Import Server Action
-import PostForm from "@/components/admin/post-form"; // Import Form Baru
+import { createPostAction } from "@/server/post-actions"; 
+import PostForm from "@/components/admin/post-form"; 
 
 export default async function CreatePostPage() {
-  // Ambil data kategori untuk dropdown
   const categoryList = await db.select().from(categories);
 
   return (

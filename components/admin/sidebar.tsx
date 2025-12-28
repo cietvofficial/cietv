@@ -86,7 +86,7 @@ export function AdminSidebar() {
       {/* FOOTER ACTIONS */}
       <div className="px-3 py-4 border-t border-gray-100 space-y-2">
         
-        {/* Tombol Liha Website (Preview) */}
+        {/* Tombol Lihat Website (Preview) */}
         <Link href="/" target="_blank">
             <Button variant="outline" className="w-full justify-start text-gray-600 border-gray-200 hover:bg-gray-50">
                 <Globe className="h-4 w-4 mr-2" />
@@ -96,7 +96,6 @@ export function AdminSidebar() {
 
         {/* Tombol Logout */}
         <form action={logoutAction} > 
-            {/* Sesuaikan action form logout kamu */}
             <Button 
                 variant="ghost" 
                 className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"

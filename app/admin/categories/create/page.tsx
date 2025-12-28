@@ -7,7 +7,7 @@ export default function CreateCategoryPage() {
   return (
     <div className="max-w-md mx-auto py-10">
       <h1 className="text-2xl font-bold mb-6">Tambah Kategori Baru</h1>
-      {/* Kita pakai form reusable tadi */}
+      
       <CategoryForm 
         actionHandler={createCategoryAction} 
         buttonLabel="Simpan Kategori" 

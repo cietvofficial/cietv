@@ -5,7 +5,6 @@ import { AuthError } from "next-auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-// Definisi tipe state return (opsional tapi bagus untuk TS)
 type LoginState =
   | {
       error?: string;
@@ -18,7 +17,7 @@ export async function loginAction(prevState: LoginState, formData: FormData) {
     await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirectTo: "/admin/posts", // Redirect ke admin setelah sukses
+      redirectTo: "/admin/posts", 
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -29,17 +28,14 @@ export async function loginAction(prevState: LoginState, formData: FormData) {
           return { error: "Terjadi kesalahan sistem." };
       }
     }
-    throw error; // Next.js butuh throw error untuk redirect
+    throw error; 
   }
 }
 
 export async function logoutAction() {
   const cookieStore = await cookies();
 
-  // 1. Hapus cookie utama sesi Auth.js
   cookieStore.delete("authjs.session-token");
-
-  // (Opsional) Hapus cookie pendukung lainnya agar bersih total
   cookieStore.delete("authjs.csrf-token");
   cookieStore.delete("authjs.callback-url");
   redirect("/");

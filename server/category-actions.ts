@@ -5,7 +5,6 @@ import { categories } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-// Helper: Bikin slug (Contoh: "Politik Luar Negeri" -> "politik-luar-negeri")
 function generateSlug(text: string) {
   return text.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
 }
@@ -50,6 +49,6 @@ export async function deleteCategoryAction(formData: FormData) {
     await db.delete(categories).where(eq(categories.id, parseInt(id)));
     revalidatePath("/admin/categories");
   } catch (error) {
-    console.error("Gagal hapus category", error);
+    // console.error("Gagal hapus category", error);
   }
 }

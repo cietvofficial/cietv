@@ -2,23 +2,9 @@ import Link from "next/link";
 import { db } from "@/db/drizzle";
 import { posts, categories } from "@/db/schema";
 import { desc, asc, eq, ilike, sql, or } from "drizzle-orm";
-import {
-  Plus,
-  Pencil,
-  Trash2,
-  Eye,
-  Calendar,
-  Folder,
-  MoreHorizontal,
-} from "lucide-react";
+import { Plus, Pencil, Eye, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { AdminPostToolbar } from "@/components/admin-post-toolbar";
 import { SortableHeader } from "@/components/sortable-header";
 import { DeletePostButton } from "@/components/delete-post-button";
@@ -136,7 +122,7 @@ export default async function AdminPostsPage(props: AdminPostsPageProps) {
       ) : (
         <>
           {/* --- VIEW 1: DESKTOP TABLE (Hidden on Mobile) --- */}
-          <div className="hidden md:block bg-white rounded-xl border shadow-sm overflow-hidden">
+          <div className="hidden md:block bg-white rounded-xl border shadow-sm overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead className="bg-gray-100 text-gray-600 font-medium border-b">
                 <tr>
@@ -191,7 +177,7 @@ export default async function AdminPostsPage(props: AdminPostsPageProps) {
                     </td>
                     <td className="px-6 py-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Link href={`/berita/${post.slug}`} target="_blank">
+                        <Link href={`/berita/${post.slug}?form=admin`} target="_blank">
                           <Button
                             variant="ghost"
                             size="icon"
@@ -262,7 +248,7 @@ export default async function AdminPostsPage(props: AdminPostsPageProps) {
                 <div className="pt-3 border-t flex items-center justify-between">
                   <span className="text-xs text-gray-400">Actions</span>
                   <div className="flex gap-1">
-                    <Link href={`/berita/${post.slug}`} target="_blank">
+                    <Link href={`/berita/${post.slug}?from=admin`} target="_blank">
                       <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                         <Eye className="w-4 h-4 text-gray-500" />
                       </Button>
@@ -272,9 +258,9 @@ export default async function AdminPostsPage(props: AdminPostsPageProps) {
                         <Pencil className="w-4 h-4 text-blue-600" />
                       </Button>
                     </Link>
-                    <Link href={`/admin/posts/${post.id}/delete`}>
+                    <div>
                       <DeletePostButton id={post.id} title={post.title} />
-                    </Link>
+                    </div>
 
                     {/* Contoh Dropdown Menu untuk Mobile agar hemat tempat jika banyak tombol
                     <DropdownMenu>

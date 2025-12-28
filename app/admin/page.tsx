@@ -66,8 +66,7 @@ export default async function AdminDashboardPage() {
           color="bg-purple-500"
         />
       </div>
-
-      {/* Bisa ditambahkan tabel aktivitas terbaru di sini nanti */}
+      {/* Tips Admin */}
       <div className="rounded-xl border bg-white p-6 shadow-sm">
         <h3 className="font-semibold text-gray-800 mb-4">Tips Admin</h3>
         <ul className="list-disc pl-5 text-gray-600 space-y-2">

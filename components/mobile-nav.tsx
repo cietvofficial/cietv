@@ -29,12 +29,10 @@ export function MobileNav({ categories }: { categories: Category[] }) {
         </Button>
       </SheetTrigger>
 
-      {/* Ganti background jadi putih */}
       <SheetContent
         side="right"
         className="bg-white text-gray-900 border-l border-gray-200 w-[300px] overflow-y-auto"
       >
-        {/* --- PENAMBAHAN WAJIB UNTUK MENGHILANGKAN ERROR --- */}
         <SheetHeader className="border-b pb-4 mb-4">
           <div className="flex items-center justify-center">
             <Image
@@ -45,7 +43,6 @@ export function MobileNav({ categories }: { categories: Category[] }) {
               className="object-contain"
             />
           </div>
-          {/* Title ini Wajib ada, tapi bisa kita sembunyikan atau styling sesuai kebutuhan */}
           <SheetTitle className="text-center text-sm font-bold uppercase text-gray-600">
             Menu Navigasi
           </SheetTitle>
@@ -53,7 +50,6 @@ export function MobileNav({ categories }: { categories: Category[] }) {
             Pilih kategori berita yang ingin Anda baca.
           </SheetDescription>
         </SheetHeader>
-        {/* -------------------------------------------------- */}
 
         <div className="flex flex-col gap-4">
           <div className="space-y-1">

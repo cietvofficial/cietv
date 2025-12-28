@@ -6,7 +6,7 @@ import { Pencil, Trash2, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AdminCategoryToolbar } from "@/components/admin-category-toolbar";
 import { SortableHeader } from "@/components/sortable-header";
-import { CreateCategoryModal } from "@/components/create-category-modal"; // Import Modal
+import { CreateCategoryModal } from "@/components/create-category-modal"; 
 import { DeleteCategoryButton } from "@/components/delete-category-button";
 import { EditCategoryModal } from "@/components/edit-category-modal";
 
@@ -47,7 +47,7 @@ export default async function AdminCategoriesPage(
       break;
     case "date":
     default:
-      orderByClause = direction(categories.createdAt); // Asumsi ada field createdAt
+      orderByClause = direction(categories.createdAt);
       break;
   }
 
@@ -101,7 +101,7 @@ export default async function AdminCategoriesPage(
       ) : (
         <>
           {/* VIEW DESKTOP (TABLE) */}
-          <div className="hidden md:block bg-white rounded-xl border shadow-sm overflow-hidden">
+          <div className="hidden md:block bg-white rounded-xl border shadow-sm overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead className="bg-gray-100 text-gray-600 font-medium border-b">
                 <tr>
@@ -177,10 +177,8 @@ export default async function AdminCategoriesPage(
                 </div>
 
                 <div className="pt-3 border-t flex items-center justify-end gap-2">
-                  {/* Edit Versi Mobile (Reuse component yang sama) */}
                   <div className="scale-90 origin-right">
                     {" "}
-                    {/* Optional: scale biar muat */}
                     <EditCategoryModal category={cat} />
                   </div>
 

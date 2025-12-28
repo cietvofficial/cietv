@@ -3,7 +3,7 @@ import Image from "next/image";
 import { SearchInput } from "./search-input";
 import { db } from "@/db/drizzle";
 import { categories } from "@/db/schema";
-import { MobileNav } from "./mobile-nav"; // Ini akan jadi Burger Menu kita
+import { MobileNav } from "./mobile-nav"; 
 import { Button } from "@/components/ui/button";
 import { UserCircle } from "lucide-react";
 

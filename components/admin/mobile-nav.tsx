@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import { logoutAction } from "@/server/auth-actions";
 import { useState } from "react";
 
-// Kita copy menu items agar sama dengan sidebar
 const menuItems = [
   { title: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { title: "Berita / Posts", href: "/admin/posts", icon: FileText },

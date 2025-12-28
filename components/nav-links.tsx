@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils"; // Pastikan kamu punya utility ini (bawaan shadcn/ui)
+import { cn } from "@/lib/utils";
 
 export function NavLinks({ categories }: { categories: any[] }) {
   const pathname = usePathname();
 
   return (
     <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-600 overflow-x-auto no-scrollbar">
-      {/* 1. Link Home */}
+      {/* Link Home */}
       <Link
         href="/"
         className={cn(
@@ -22,7 +22,7 @@ export function NavLinks({ categories }: { categories: any[] }) {
         Home
       </Link>
 
-      {/* 2. Link Kategori Dinamis */}
+      {/* Link Kategori Dinamis */}
       {categories.map((cat) => {
         const linkHref = `/category/${cat.slug}`;
         const isActive = pathname === linkHref;

@@ -12,7 +12,7 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle, // Pastikan ini diimport
+  AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { deleteCategoryAction } from "@/server/category-actions";
@@ -41,7 +41,6 @@ export function DeleteCategoryButton({
       </AlertDialogTrigger>
 
       <AlertDialogContent>
-        {/* BAGIAN INI WAJIB ADA (HEADER & TITLE) */}
         <AlertDialogHeader>
           <AlertDialogTitle>Hapus Kategori?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -55,7 +54,6 @@ export function DeleteCategoryButton({
 
           <AlertDialogFooter>
             <AlertDialogCancel>Batal</AlertDialogCancel>
-            {/* Gunakan Button submit biasa di sini */}
             <Button type="submit" className="bg-red-600 hover:bg-red-700">
               Hapus
             </Button>

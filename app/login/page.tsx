@@ -1,12 +1,9 @@
 'use client';
 
-// 1. Import useActionState dari "react" (bukan react-dom)
 import { useActionState } from "react";
-import { loginAction } from "@/server/auth-actions"; // Pastikan path ini sesuai file kamu
+import { loginAction } from "@/server/auth-actions"; 
 
 export default function LoginPage() {
-  // 2. Gunakan useActionState
-  // isPending berguna untuk disable tombol saat proses login berjalan
   const [state, action, isPending] = useActionState(loginAction, null);
 
   return (
@@ -23,7 +20,7 @@ export default function LoginPage() {
               name="email"
               type="email"
               required
-              placeholder="admin@cietv.com"
+              placeholder="example@gmail.com"
               className="mt-1 w-full rounded border border-gray-300 p-2 focus:border-blue-500 focus:outline-none"
             />
           </div>

@@ -12,7 +12,6 @@ export async function Footer() {
     <footer className="bg-white border-t border-gray-200 mt-20">
       <div className="container mx-auto px-4 py-10">
         <div className="flex flex-col md:flex-row justify-between gap-10">
-          {/* BAGIAN KIRI: LOGO & SOSMED */}
           <div className="flex flex-col space-y-4 max-w-xs">
             <Link href="/">
               <Image
@@ -28,7 +27,7 @@ export async function Footer() {
               setiap hari.
             </p>
 
-            {/* Social Media Icons (Hiasan) */}
+            {/* Social Media Icons */}
             <div className="flex gap-4 pt-2">
               <Link
                 href="https://www.tiktok.com/@cietvutm?_r=1&_t=ZS-9250Ac7EuhA"
@@ -64,12 +63,11 @@ export async function Footer() {
             </div>
           </div>
 
-          {/* BAGIAN KANAN: KATEGORI (GRID) */}
+          {/* KATEGORI */}
           <div className="flex-1 md:text-right">
             <h3 className="font-bold text-gray-900 mb-4 uppercase tracking-wider">
               Kategori Berita
             </h3>
-            {/* Grid layout: 2 kolom di HP, 3-4 kolom di Desktop agar rapi */}
             <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-3">
               {categoryList.map((cat) => (
                 <li key={cat.id}>

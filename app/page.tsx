@@ -15,7 +15,7 @@ type PostWithCategory = typeof posts.$inferSelect & {
 
 // --- HELPERS ---
 
-// 1. Format Tanggal Indonesia
+// Format Tanggal Indonesia
 function formatDate(date: Date | null) {
   if (!date) return "-";
   return new Date(date).toLocaleDateString("id-ID", {
@@ -25,21 +25,21 @@ function formatDate(date: Date | null) {
   });
 }
 
-// 2. Strip HTML Tags (Penting untuk preview teks agar layout tidak pecah)
+// Strip HTML Tags (Penting untuk preview teks agar layout tidak pecah)
 function stripHtml(html: string) {
   if (!html) return "";
 
   return html
-    .replace(/<[^>]*>?/gm, "") // 1. Hapus semua tag HTML (<...>)
-    .replace(/&nbsp;/g, " ") // 2. Ganti &nbsp; menjadi spasi biasa
-    .replace(/\s+/g, " ") // 3. Gabungkan spasi yang berdempetan menjadi satu spasi
-    .trim(); // 4. Hapus spasi di awal dan akhir kalimat
+    .replace(/<[^>]*>?/gm, "") // Hapus semua tag HTML (<...>)
+    .replace(/&nbsp;/g, " ") // Ganti &nbsp; menjadi spasi biasa
+    .replace(/\s+/g, " ") // Gabungkan spasi yang berdempetan menjadi satu spasi
+    .trim(); // Hapus spasi di awal dan akhir kalimat
 }
 
 export const revalidate = 60;
 
 export default async function HomePage() {
-  // 1. Ambil Data
+  // Ambil Data
   const allPosts = await db.query.posts.findMany({
     where: eq(posts.published, true),
     orderBy: [desc(posts.createdAt)],
@@ -70,8 +70,7 @@ export default async function HomePage() {
     );
   }
 
-  // 2. Bagi Data Layout
-  // Casting tipe data agar tidak perlu pakai 'any' di map
+  // Bagi Data Layout
   const typedPosts = allPosts as PostWithCategory[];
   const [heroPost, ...restPosts] = typedPosts;
   const sidePosts = restPosts.slice(0, 3);
@@ -93,7 +92,6 @@ export default async function HomePage() {
                     src={heroPost.imageUrl}
                     alt={heroPost.title}
                     fill
-                    // Priority true untuk Hero image (LCP optimization)
                     priority
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -110,8 +108,6 @@ export default async function HomePage() {
                     {heroPost.category?.name || "Umum"}
                   </Badge>
                 </div>
-                {/* Overlay gradient agar teks putih terbaca jika ingin ditaruh di atas gambar (opsional) */}
-                {/* <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" /> */}
               </div>
 
               <div className="mt-5 space-y-3">
@@ -130,7 +126,6 @@ export default async function HomePage() {
                   {heroPost.title}
                 </h1>
 
-                {/* Menggunakan stripHtml agar tag HTML tidak merusak layout preview */}
                 <p className="text-gray-600 md:text-lg leading-relaxed line-clamp-3">
                   {stripHtml(heroPost.content).substring(0, 150)}...
                 </p>

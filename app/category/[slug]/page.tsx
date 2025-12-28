@@ -23,12 +23,10 @@ export default async function CategoryPage({
 }: {
   params: { slug: string };
 }) {
-  // 2. Wajib di-await dulu untuk mendapatkan slug-nya
   const { slug } = await params;
 
-  // 3. Gunakan variabel 'slug' yang sudah di-await tadi
   const categoryData = await db.query.categories.findFirst({
-    where: eq(categories.slug, slug), // <--- Pakai slug variable, bukan params.slug
+    where: eq(categories.slug, slug), 
   });
 
   if (!categoryData) return notFound();

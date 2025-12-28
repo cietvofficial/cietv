@@ -2,20 +2,18 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { toast } from "sonner"; // Ganti dengan library toast-mu (misal: "sonner" atau "@/components/ui/use-toast")
+import { toast } from "sonner"; 
 
 export function PostToastListener() {
   const searchParams = useSearchParams();
   const router = useRouter();
   
-  // Ref untuk memastikan toast hanya jalan 1x per render cycle
   const hasShownToast = useRef(false);
 
   useEffect(() => {
     const success = searchParams.get("success");
 
     if (success && !hasShownToast.current) {
-      // 1. Tampilkan Toast
       if (success === "created") {
         toast.success("Berita berhasil dibuat!");
       } else if (success === "updated") {
@@ -24,11 +22,8 @@ export function PostToastListener() {
         toast.success("Berita berhasil dihapus!");
       }
 
-      // 2. Kunci agar tidak double
       hasShownToast.current = true;
 
-      // 3. Bersihkan URL tanpa refresh halaman
-      // Kita hapus param ?success=... agar kalau direfresh manual, toast gak muncul lagi
       const params = new URLSearchParams(searchParams.toString());
       params.delete("success");
       
@@ -38,5 +33,5 @@ export function PostToastListener() {
     }
   }, [searchParams, router]);
 
-  return null; // Komponen ini tidak merender visual apa-apa
+  return null; 
 }

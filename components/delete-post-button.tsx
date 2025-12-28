@@ -14,8 +14,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { deletePost } from "@/server/post-actions"; // Pastikan path action benar
-import { toast } from "sonner"; // Pastikan import toast library kamu benar
+import { deletePost } from "@/server/post-actions"; 
+import { toast } from "sonner";
 
 interface DeletePostButtonProps {
   id: number;
@@ -29,11 +29,11 @@ export function DeletePostButton({ id, title }: DeletePostButtonProps) {
   const handleDelete = async () => {
     startTransition(async () => {
       try {
-        // 1. Panggil Server Action
+        // Panggil Server Action
         const result = await deletePost(id);
 
         if (result?.success) {
-          // 2. SUCCESS: Munculkan Toast LANGSUNG disini (Client Side)
+          // SUCCESS: Munculkan Toast LANGSUNG disini (Client Side)
           toast.success("Berita berhasil dihapus!");
           setOpen(false);
         } else {

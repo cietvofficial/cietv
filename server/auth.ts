@@ -1,14 +1,14 @@
 // src/auth.ts
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { db } from "@/db/drizzle"; // Pastikan path ini benar ke setup drizzle kamu
+import { db } from "@/db/drizzle";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: {
-    strategy: "jwt", // Kita pakai JWT agar tidak perlu tabel session di DB
+    strategy: "jwt", 
   },
   pages: {
     signIn: "/login", // Halaman login kustom kita nanti
@@ -28,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const email = credentials.email as string;
         const password = credentials.password as string;
 
-        // 1. Cari user di database Neon berdasarkan email
+        // Cari user di database Neon berdasarkan email
         const userResult = await db
           .select()
           .from(users)
@@ -37,19 +37,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const user = userResult[0];
 
-        // 2. Jika user tidak ada
+        // Jika user tidak ada
         if (!user) {
           throw new Error("User tidak ditemukan.");
         }
 
-        // 3. Cek password (Hash comparison)
+        // Cek password (Hash comparison)
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
           throw new Error("Password salah.");
         }
 
-        // 4. Return user object (tanpa password)
+        // Return user object (tanpa password)
         return {
           id: user.id.toString(),
           name: user.name,

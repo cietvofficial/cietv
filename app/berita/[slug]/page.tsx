@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { BackButton } from "@/components/back-button";
 
 export default async function BeritaDetailPage({
   params,
@@ -13,7 +14,7 @@ export default async function BeritaDetailPage({
 }) {
   const { slug } = await params;
 
-  // 1. Ambil data berita berdasarkan slug + Relasi Kategori
+  // Ambil data berita berdasarkan slug + Relasi Kategori
   const post = await db.query.posts.findFirst({
     where: eq(posts.slug, slug),
     with: {
@@ -27,12 +28,7 @@ export default async function BeritaDetailPage({
     <article className="min-h-screen bg-white pb-20">
       {/* Header/Navigation Back */}
       <div className="container mx-auto px-4 py-6">
-        <a
-          href="/"
-          className="text-blue-600 hover:underline flex items-center gap-1 text-sm font-medium"
-        >
-          &larr; Kembali ke Beranda
-        </a>
+        <BackButton />
       </div>
 
       <div className="container mx-auto px-4 max-w-4xl">
@@ -64,10 +60,6 @@ export default async function BeritaDetailPage({
 
         {/* Isi Berita */}
         <div className="prose prose-lg prose-blue mx-auto text-gray-800 leading-relaxed">
-          {/* Hati-hati: Jika konten mengandung HTML (dari Rich Text Editor), 
-                gunakan library seperti 'html-react-parser' atau dangerouslySetInnerHTML.
-                Untuk teks biasa, tampilkan langsung seperti ini:
-            */}
           <div
             className="prose prose-lg prose-red max-w-none text-gray-700 leading-relaxed 
                 prose-img:rounded-xl prose-img:shadow-md prose-img:w-full prose-img:object-cover"

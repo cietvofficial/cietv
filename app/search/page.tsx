@@ -19,7 +19,12 @@ function formatDate(date: Date | null) {
 
 function stripHtml(html: string) {
   if (!html) return "";
-  return html.replace(/<[^>]*>?/gm, "");
+
+  return html
+    .replace(/<[^>]*>?/gm, "") // Hapus semua tag HTML (<...>)
+    .replace(/&nbsp;/g, " ") // Ganti &nbsp; menjadi spasi biasa
+    .replace(/\s+/g, " ") // Gabungkan spasi yang berdempetan menjadi satu spasi
+    .trim(); // Hapus spasi di awal dan akhir kalimat
 }
 
 interface SearchPageProps {
@@ -29,7 +34,6 @@ interface SearchPageProps {
 }
 
 export default async function SearchPage(props: SearchPageProps) {
-  // 2. LAKUKAN AWAIT TERLEBIH DAHULU
   const searchParams = await props.searchParams;
   const query = searchParams.q || "";
   // Jika tidak ada query, tampilkan kosong atau redirect
@@ -91,7 +95,7 @@ export default async function SearchPage(props: SearchPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {searchResults.map((post) => (
               <Link
-                href={`/berita/${post.slug}`} // Sesuaikan dengan route detail berita kamu
+                href={`/berita/${post.slug}`}
                 key={post.id}
                 className="group flex flex-col bg-white border rounded-xl overflow-hidden hover:shadow-md transition-shadow"
               >

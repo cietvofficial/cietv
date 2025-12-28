@@ -44,7 +44,6 @@ export const AdminPostToolbar = () => {
     <div className="bg-white p-4 rounded-xl border shadow-sm mb-6">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         {/* SEARCH FORM */}
-        {/* Saya set w-full tapi max-width di desktop agar tidak kepanjangan */}
         <form onSubmit={handleSearch} className="relative w-full md:max-w-md">
           <div className="relative">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -61,7 +60,7 @@ export const AdminPostToolbar = () => {
           </div>
         </form>
 
-        {/* SORT BUTTON (COMMENTED OUT) */}
+        {/* SORT BUTTON */}
         {/* <button
           onClick={toggleSort}
           className="flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-md hover:bg-gray-50 transition-colors"

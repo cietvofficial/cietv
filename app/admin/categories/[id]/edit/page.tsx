@@ -16,7 +16,7 @@ export default async function EditCategoryPage({ params }: { params: Promise<{ i
 
   if (!category) return notFound();
 
-  // Kita bind ID ke action update
+  // bind ID ke action update
   const updateActionWithId = updateCategoryAction.bind(null, category.id);
 
   return (

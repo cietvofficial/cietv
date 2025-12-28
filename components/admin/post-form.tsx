@@ -102,7 +102,7 @@ export default function PostForm({
           </div>
         </div>
 
-        {/* --- IMAGE UPLOAD (LOGIKA TETAP SAMA) --- */}
+        {/* --- IMAGE UPLOAD --- */}
         <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-dashed border-gray-300">
           <Label htmlFor="image" className="font-semibold">
             Gambar Thumbnail
@@ -142,7 +142,7 @@ export default function PostForm({
           </div>
         </div>
 
-        {/* --- RICH TEXT EDITOR (LOGIKA TETAP SAMA) --- */}
+        {/* --- RICH TEXT EDITOR --- */}
         <div className="space-y-3">
           <Label className="font-semibold">Konten Berita</Label>
           <div className="border rounded-md min-h-[300px]">
@@ -163,7 +163,7 @@ export default function PostForm({
       </div>
 
       {/* --- TOMBOL AKSI (FOOTER) --- */}
-      <div className="bg-gray-50 px-6 py-4 flex items-center justify-between border-t">
+      <div className="bg-gray-50 px-6 py-4 flex flex-col-reverse md:flex-row md:justify-between gap-4 pt-6 border-t border-gray-100">
         <div className="text-sm text-gray-500">
           Status saat ini:{" "}
           <span
@@ -184,7 +184,7 @@ export default function PostForm({
           <Button
             type="submit"
             name="submitAction"
-            value="draft" // Value ini ditangkap server
+            value="draft"
             variant="outline"
             disabled={isPending}
             className="border-gray-300 text-gray-700 hover:bg-gray-100"
@@ -197,7 +197,7 @@ export default function PostForm({
           <Button
             type="submit"
             name="submitAction"
-            value="publish" // Value ini ditangkap server
+            value="publish"
             disabled={isPending}
             className="bg-blue-600 hover:bg-blue-700 text-white"
           >
@@ -207,8 +207,8 @@ export default function PostForm({
               <>
                 <Send className="w-4 h-4 mr-2" />
                 {initialData?.published
-                  ? "Update & Terbit"
-                  : "Publish Sekarang"}
+                  ? "Update"
+                  : "Publish"}
               </>
             )}
           </Button>

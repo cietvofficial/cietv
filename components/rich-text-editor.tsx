@@ -3,13 +3,12 @@
 import React, { useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.snow.css";
-import { uploadEditorImage } from "@/server/upload-actions"; // Import server action tadi
+import { uploadEditorImage } from "@/server/upload-actions"; 
 
-// Import ReactQuill secara dinamis
+
 const ReactQuill = dynamic(
   async () => {
     const { default: RQ } = await import("react-quill-new");
-    // eslint-disable-next-line react/display-name
     return ({ forwardedRef, ...props }: any) => (
       <RQ ref={forwardedRef} {...props} />
     );
@@ -31,18 +30,17 @@ export default function RichTextEditor({
 
   // HANDLER KHUSUS IMAGE
   const imageHandler = () => {
-    // 1. Buat elemen input file secara virtual
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.setAttribute("accept", "image/*");
     input.click();
 
-    // 2. Ketika user memilih file
+    // Ketika user memilih file
     input.onchange = async () => {
       const file = input.files ? input.files[0] : null;
       if (!file) return;
 
-      // 3. Upload ke server (via Server Action)
+      // Upload ke server (via Server Action)
       const formData = new FormData();
       formData.append("file", file);
 
@@ -50,7 +48,7 @@ export default function RichTextEditor({
         // Panggil server action yang kita buat di langkah 1
         const url = await uploadEditorImage(formData);
 
-        // 4. Masukkan URL gambar ke dalam Editor
+        // Masukkan URL gambar ke dalam Editor
         const editor = quillRef.current.getEditor();
         const range = editor.getSelection();
         // Insert embed image di posisi kursor
@@ -64,7 +62,6 @@ export default function RichTextEditor({
     };
   };
 
-  // PENTING: useMemo agar modules tidak di-render ulang setiap ketik (bikin hilang fokus)
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -72,11 +69,11 @@ export default function RichTextEditor({
           [{ header: [1, 2, 3, false] }],
           ["bold", "italic", "underline", "strike", "blockquote"],
           [{ list: "ordered" }, { list: "bullet" }],
-          ["link", "image"], // Ada tombol image sekarang
+          ["link", "image"],
           ["clean"],
         ],
         handlers: {
-          image: imageHandler, // Pasang handler custom kita
+          image: imageHandler,
         },
       },
     }),
@@ -92,19 +89,19 @@ export default function RichTextEditor({
     "blockquote",
     "list",
     "link",
-    "image", // Jangan lupa daftarkan format 'image'
+    "image",
   ];
 
   return (
     <div className="bg-white">
       <ReactQuill
-        ref={quillRef} // Pasang Ref disini
+        ref={quillRef}
         theme="snow"
         value={value}
         onChange={onChange}
         modules={modules}
         formats={formats}
-        className="h-96 mb-12" // Sedikit lebih tinggi biar enak edit gambar
+        className="h-96 mb-12" 
       />
     </div>
   );
