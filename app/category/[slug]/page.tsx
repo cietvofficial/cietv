@@ -57,7 +57,7 @@ export default async function CategoryPage({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {categoryPosts.map((post: any) => (
               <Link
-                href={`/news/${post.slug}`}
+                href={`/berita/${post.slug}`}
                 key={post.id}
                 className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition border"
               >
