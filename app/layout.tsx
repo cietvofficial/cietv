@@ -16,8 +16,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CIE TV",
-  description: "CIE TV Official Website",
+  title: {
+    default: "CIE TV - Berita Terkini & Terpercaya",
+    template: "%s | CIE TV", 
+  },
+  description: "Portal berita aktual menyajikan informasi terbaru seputar politik, ekonomi, dan peristiwa terkini.",
+  
+
+  icons: {
+    icon: "/logo_cietv.png", 
+  },
 };
 
 export default function RootLayout({

@@ -6,6 +6,28 @@ import Image from "next/image";
 import { formatDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { BackButton } from "@/components/back-button";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  // Ambil data berita berdasarkan slug (sesuaikan dengan query kamu)
+  const post = await db.query.posts.findFirst({
+    where: eq(posts.slug, (await params).slug),
+  });
+
+  if (!post) {
+    return {
+      title: "Berita Tidak Ditemukan",
+    };
+  }
+
+  return {
+    title: post.title, // Judul tab akan menjadi judul berita
+    description: post.content.substring(0, 150), // Deskripsi singkat untuk SEO
+    openGraph: {
+      images: [post.imageUrl || ""], // Gambar thumbnail saat di-share di WA/FB
+    },
+  };
+}
 
 export default async function BeritaDetailPage({
   params,
