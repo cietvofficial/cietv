@@ -6,6 +6,7 @@ import { categories } from "@/db/schema";
 import { MobileNav } from "./mobile-nav"; 
 import { Button } from "@/components/ui/button";
 import { UserCircle } from "lucide-react";
+import { Suspense } from "react";
 
 export async function Navbar() {
   // Ambil data kategori
@@ -37,8 +38,9 @@ export async function Navbar() {
           {/* SEARCH BAR (Tengah & Lebar) */}
           {/* <div className="d-flex justify-end max-w-2xl mx-4 hidden sm:block"> */}
           <div className="d-flex justify-end max-w-2xl mx-4">
-            {/* <SearchInput className="bg-[#1f1f1f] border-[#333] text-white placeholder:text-gray-400" /> */}
-            <SearchInput />
+            <Suspense fallback={<div className="h-10 w-full bg-gray-100 rounded-md animate-pulse" />}>
+                <SearchInput className="bg-gray-100 border-gray-300 text-gray-900 placeholder:text-gray-500 focus-visible:ring-blue-600" />
+            </Suspense>
           </div>
         </div>
 
