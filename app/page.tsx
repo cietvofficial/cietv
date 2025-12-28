@@ -189,10 +189,10 @@ export default async function HomePage() {
             </div>
 
             {/* Widget: Iklan */}
-            <div className="relative w-full aspect-[4/3] bg-gray-100 rounded-xl flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-gray-300">
+            {/* <div className="relative w-full aspect-[4/3] bg-gray-100 rounded-xl flex flex-col items-center justify-center text-gray-400 border-2 border-dashed border-gray-300">
               <span className="text-sm font-semibold">Space Iklan</span>
               <span className="text-xs">300 x 250</span>
-            </div>
+            </div> */}
           </aside>
         </section>
 
